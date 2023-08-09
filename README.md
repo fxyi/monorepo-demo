@@ -2,7 +2,7 @@
 
 
 
-# 1、/store/v3/tmp/xxx
+# /store/v3/tmp/xxx
 
 ![681691519077_.pic](./681691519077_.pic.jpg)
 
@@ -14,7 +14,7 @@
 
 
 
-# 2、postinstall
+# postinstall
 
 第二个，注意esbuild：Running postinstall script 
 
@@ -22,7 +22,7 @@ https://juejin.cn/post/7142397455597109279
 
 
 
-# 3、pnpm add 某个包的截图
+# pnpm add 某个包的截图
 
 安装
 
@@ -30,7 +30,7 @@ https://juejin.cn/post/7142397455597109279
 
 ![image-20230809031609424](./image-20230809031609424.png)
 
-# 4、pnpm-workspace.yaml
+# pnpm-workspace.yaml
 
 ```yaml
 packages:
@@ -58,13 +58,17 @@ packages:
 
 当您在工作区的根目录中运行 `pnpm install` 命令时，pnpm 会自动识别 `components/**` 模式，并进入每个匹配的子目录执行包的安装。这意味着 `components1/components4` 目录中的 `package.json` 文件定义的依赖将被安装。
 
-这里得自己试一试
+这里得自己试一试，试完了，确实是这样的
+
+pnpm install安装
 
 
 
 
 
-# 5、pnpm add 对比npm install
+
+
+# pnpm add 对比npm install
 
 在使用 `pnpm add` 命令安装包时，pnpm 会按照以下优先级顺序获取资源：
 
@@ -77,7 +81,31 @@ packages:
 
 
 
-# 6、link
+# pnpm复用
+
+```
+Progress: resolved 901, reused 880, downloaded 0, added 880, done
+```
+
+- "resolved 901"：表示已解析（resolved）的包的数量，即**已确定要安装的包的数量**。
+- "reused 880"：表示已重用（reused）的包的数量，即**已经存在于本地缓存中的包的数量**。这些包不需要重新下载，而是直接从缓存中复用。
+- "downloaded 0"：表示已下载（downloaded）的包的数量，即**需要从远程注册表下载的包的数量**。在这个例子中，没有需要下载的包，因为所有的包要么已经存在于本地缓存中，要么被重用。
+- "added 880"：表示已添加（added）的包的数量，即**需要被安装的包的数量**。这包括从本地缓存中复用的包和从远程注册表下载的包。
+- "done"：表示安装过程已完成，所有需要安装的包都已经处理完毕。
+
+```
+为什么这里resolved的数量不等于added的数量
+```
+
+1. 重用已存在的包：在安装过程中，pnpm 会检查本地缓存中是否已经存在所需的包。如果已经存在，它将被重用，而不需要重新下载。这些被重用的包会计入 "resolved" 数量，但不会计入 "added" 数量。
+2. 依赖的版本范围：在 package.json 文件中，您可能指定了依赖的版本范围，而不是具体的版本号。当 pnpm 解析依赖关系时，它会根据版本范围确定要安装的具体版本。因此，"resolved" 数量表示已解析的包的数量，而 "added" 数量表示实际要安装的包的数量。
+3. 依赖的共享：如果多个包依赖同一个包，并且这些包的版本范围是兼容的，pnpm 可能会共享这个包，而不是为每个包都安装一个副本。这样可以减少磁盘空间的占用。在这种情况下，"resolved" 数量可能会大于 "added" 数量。
+
+总之，"resolved" 数量表示已解析的包的数量，而 "added" 数量表示实际要安装的包的数量。差异可能是由于重用已存在的包、依赖的版本范围和依赖的共享等因素导致的。这些差异并不表示错误，而是 pnpm 在安装过程中的优化和处理方式。
+
+
+
+# link
 
 ```json
 "dependencies": {
@@ -100,3 +128,10 @@ packages:
 需要注意的是，使用符号链接方式引用依赖需要确保依赖包已经被正确地链接到项目中。通常，您需要在依赖包的根目录中运行 `npm link` 或 `pnpm link` 命令，将依赖包链接到全局或本地的包管理器中。然后，在项目中使用 "link" 形式的依赖声明，以确保正确引用依赖。
 
 总结起来，"link:@components/core/test" 表示使用符号链接的方式引用 "@components/core/test" 依赖包，使项目中的 "test" 依赖直接指向该依赖包的代码和文件。
+
+
+
+# npm/yarn迁移pnpm
+
+https://juejin.cn/post/7129552750446116878
+
