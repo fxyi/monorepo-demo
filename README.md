@@ -135,3 +135,42 @@ Progress: resolved 901, reused 880, downloaded 0, added 880, done
 
 https://juejin.cn/post/7129552750446116878
 
+
+
+https://blog.lyh543.cn/posts/2022-04-18-migrate-npm-multirepo-to-pnpm-monorepo.html
+
+在一个 pnpm workspace 中敲下 `pnpm install`，会发生：
+
+1. workspace 里的所有包的外部依赖都会被下载到 workspace 的根目录的 `node_modules` 下。
+2. 所有包的外部依赖都会在包的 `node_modules` 下，以软链接的形式 link 到 workspace 的根目录的 `node_modules` 下。
+3. workspace 内部的相互依赖，会按照 `package.json` 中版本号的写法，完成从 registry 安装（就是步骤 1），或是本地 link。
+
+
+
+# package.json中scripts特殊项
+
+在 `package.json` 文件的 `scripts` 字段中，有一些特殊的脚本项，它们在特定的时机或条件下会被自动执行。以下是其中一些常见的特殊脚本项：
+
+1. `preinstall`：在安装依赖包之前执行的脚本。通常用于在安装过程中执行一些准备工作或检查操作。
+2. `postinstall`：在安装依赖包之后执行的脚本。通常用于在安装完成后进行一些额外的配置或构建操作。
+3. `preuninstall`：在卸载依赖包之前执行的脚本。通常用于在卸载过程中执行一些清理操作。
+4. `postuninstall`：在卸载依赖包之后执行的脚本。通常用于在卸载完成后进行一些额外的清理操作。
+5. `prepublish`：在将包发布到注册表之前执行的脚本。通常用于在发布前进行构建、测试或其他准备工作。
+6. `prepare`：在安装或更新依赖包时执行的脚本。通常用于在安装或更新过程中进行构建、编译或其他准备工作。
+
+这些特殊脚本项可以在 `scripts` 字段中定义，并在特定的时机或条件下自动执行。它们提供了一种方便的方式来定义和执行与包的生命周期相关的操作，例如在安装、卸载、构建或发布过程中执行一些自定义的脚本逻辑。
+
+
+
+# pnpm import 
+
+pnpm import 是 pnpm 包管理器提供的一个指令，用于将已经存在于项目中的依赖包转换为 pnpm 的本地包。
+
+
+
+
+
+# 稿子
+
+
+

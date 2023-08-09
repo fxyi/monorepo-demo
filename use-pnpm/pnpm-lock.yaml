@@ -24,6 +24,16 @@ importers:
         specifier: ^4.4.5
         version: 4.4.5
 
+  packages/pixi-project:
+    dependencies:
+      pixi.js:
+        specifier: ^7.1.1
+        version: 7.1.1
+    devDependencies:
+      vite:
+        specifier: ^4.4.5
+        version: 4.4.5
+
 packages:
 
   /@babel/helper-string-parser@7.22.5:
