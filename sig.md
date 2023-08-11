@@ -24,6 +24,10 @@
 
 
 
+monorepo eslint问题 
+
+https://github.com/typescript-eslint/typescript-eslint/issues/1192
+
 
 
 
