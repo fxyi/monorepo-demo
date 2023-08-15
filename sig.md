@@ -24,6 +24,10 @@
 
 
 
+monorepo eslint问题 
+
+https://github.com/typescript-eslint/typescript-eslint/issues/1192
+
 
 
 > 大家好，我是josiefang，本次前端sig我分享的主题是：前端包管理工具的演进和Monorepo初探。
